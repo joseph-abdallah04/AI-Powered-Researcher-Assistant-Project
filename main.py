@@ -28,20 +28,20 @@ llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
 parser = PydanticOutputParser(pydantic_object=ResearchResponse)
 
 
-"""
-The prompt below is the prompt that will be sent to the LLM model.
-The prompt is a ChatPromptTemplate object that takes in a list of tuples.
-Each tuple is a message that will be sent to the LLM model.
-The first element of the tuple is the speaker of the message (human or system).
-The second element of the tuple is the message itself.
-The placeholders in the message are replaced by the values passed to the partial method of the ChatPromptTemplate object.
-The placeholders are enclosed in curly braces.
 
-The parser is used to format the output of the LLM model to the desired format so that no errors are encountered due to types.
-The format_instructions are added to the prompt to ensure that the output is in the correct format.
-The format_instructions are added to the prompt in the partial method of the ChatPromptTemplate object.
-The format_instructions are obtained from the parser object by calling the get_format_instructions method.
-"""
+# The prompt below is the prompt that will be sent to the LLM model.
+# The prompt is a ChatPromptTemplate object that takes in a list of tuples.
+# Each tuple is a message that will be sent to the LLM model.
+# The first element of the tuple is the speaker of the message (human or system).
+# The second element of the tuple is the message itself.
+# The placeholders in the message are replaced by the values passed to the partial method of the ChatPromptTemplate object.
+# The placeholders are enclosed in curly braces.
+
+# The parser is used to format the output of the LLM model to the desired format so that no errors are encountered due to types.
+# The format_instructions are added to the prompt to ensure that the output is in the correct format.
+# The format_instructions are added to the prompt in the partial method of the ChatPromptTemplate object.
+# The format_instructions are obtained from the parser object by calling the get_format_instructions method.
+
 prompt = ChatPromptTemplate.from_messages(
     [
         (
@@ -72,17 +72,17 @@ query = input("What can I help you research?\n") # The user is prompted to enter
 raw_response = agent_executor.invoke({"query": query}) # The query is passed to the agent_executor to be sent to the LLM model
 # print(raw_response) # This line is used to print the raw response of the LLM model. I used this for testing purposes.
 
-"""
-The below line structures the reponse of the output. If you look at the raw response, it has an "output" 
-key that contains the output of the LLM model. This is structued in a list[] format. So we take the first
-element of the list (that being the text output) and pass it to the parser to get the structured response.
-It structures this response according to the ResearchResponse class that we defined above. Look at the class,
-and see how we have defined the fields that we want in the output. The parser will then structure the output
-because we gave it the format instructions in the prompt.
 
-The try catch block is simply there to catch any errors that may occur during the parsing of the response.
-If an error occurs, it will print the error and the raw response so that we can see what went wrong.
-"""
+# The below line structures the reponse of the output. If you look at the raw response, it has an "output" 
+# key that contains the output of the LLM model. This is structued in a list[] format. So we take the first
+# element of the list (that being the text output) and pass it to the parser to get the structured response.
+# It structures this response according to the ResearchResponse class that we defined above. Look at the class,
+# and see how we have defined the fields that we want in the output. The parser will then structure the output
+# because we gave it the format instructions in the prompt.
+
+# The try catch block is simply there to catch any errors that may occur during the parsing of the response.
+# If an error occurs, it will print the error and the raw response so that we can see what went wrong.
+
 try:
     structured_response = parser.parse(raw_response.get("output")[0]["text"])
     print(structured_response)
