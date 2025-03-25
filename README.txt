@@ -7,3 +7,6 @@ tools it has used. One of these tools is designed to allow it to save its respon
 NOTE:
 Before running you must create a virtual environment and download all required dependencies from within requirements.txt using:
     pip install -r requirements.txt
+
+Also, if .env is not being loaded correctly, you may need to export the key to brute-force things a bit, using:
+    export ANTHROPIC_API_KEY=your_key_here
