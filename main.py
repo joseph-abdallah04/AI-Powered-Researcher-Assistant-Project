@@ -10,7 +10,7 @@ from tools import search_tool # This is the custom tool that we created in the t
 from tools import wiki_tool # Importing the wiki_tool that we created in the tools.py file
 from tools import save_tool # Importing the save_tool that we created in the tools.py file
 
-load_dotenv() # This line loads the .env file
+load_dotenv() # This line loads the variables from the .env file
 
 #This below was included as I was running into issues with the .env file not being loaded properly. It still didn't load properly.
 #so I had to run the folling command in the terminal to export the api key directly: export ANTHROPIC_API_KEY="YOUR_API_KEY"
@@ -24,7 +24,10 @@ class ResearchResponse(BaseModel):
     sources: list[str]
     tools_used: list[str]
 
-llm = ChatAnthropic(model="claude-3-5-sonnet-20241022")
+llm = ChatAnthropic(model="claude-3-5-sonnet-20241022") # This is the LLM model that we are using. We are using the ChatAnthropic 
+# model from the langchain_anthropic module. ChatAnthropic automatically looks for ANTHROPIC_API_KEY variable in the environment. 
+# If it is not found, it will throw an error. You can also pass the api key as an argument to the ChatAnthropic class.
+# However, since load_dotenv() has loaded the .env file, the key is available for ChatAnthropic to use in API requests.
 parser = PydanticOutputParser(pydantic_object=ResearchResponse)
 
 
